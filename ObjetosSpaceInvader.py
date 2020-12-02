@@ -27,7 +27,7 @@ class Casilla:
         personaje = []
     
     def setEnemigos(self, pEnemigos):
-        self.enemigos[0] = pEnemigos
+        self.enemigos = pEnemigos
     
     def getEnemigos(self):
         return self.enemigos
