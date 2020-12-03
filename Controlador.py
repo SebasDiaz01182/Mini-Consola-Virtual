@@ -56,6 +56,7 @@ def BotonAbajo():
     EnviarEntrada(mensajeJSON)
 
 
+
 class Ventana:
     def __init__(self):
         super().__init__()
@@ -84,7 +85,7 @@ class Ventana:
         botonAb.place(x=130,y=175,width=55,height=50)
 
         #Boton de Accion
-        botonAccion = Button(ventana,text='X')
+        botonAccion = Button(ventana,text='X',command=Accion)
         botonAccion.pack()
         botonAccion.place(x=400,y=125,width=55,height=40)
 
