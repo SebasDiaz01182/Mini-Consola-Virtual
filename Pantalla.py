@@ -4,7 +4,10 @@ from tkinter import messagebox #Interfaz
 import socket #Libreria de socket
 import sys #Libreria para cerrar el programa en caso de error
 import json #Libreria para utilizar objetos JSON
-import random #Libreria para cosas aleatorias
+from random import *
+from ObjetosSpaceInvader import *
+import _thread
+import time
 
 '''
 #Creacion del socket 
@@ -13,7 +16,7 @@ socketSI.bind(('localhost',6000))
 socketSI.listen(1)
 '''
 
-    
+matrizPixeles = []
 class Pantalla:
     def __init__(self):
         super().__init__()
@@ -24,7 +27,6 @@ class Pantalla:
         pantalla.geometry('1601x1080')
         pantalla.resizable(False,False)
         pantalla.title('Vista')
-        matrizPixeles=[]
         for i in range(44):
             matrizPixeles.append([])
             for j in range(44):
@@ -48,7 +50,9 @@ class Pantalla:
         matrizPixeles[42][21].config(bg="red")
         matrizPixeles[43][20].config(bg="red")
         matrizPixeles[41][21].config(bg="grey")
+        
         pantalla.mainloop() # bucle infinito de la interfaz
+        
 
 '''
 def RecibirPrincipal():
@@ -66,11 +70,14 @@ def RecibirPrincipal():
             pass
 '''
 
-'''
-colores{1:"blue",2:"yellow",3:"red"}
-clave = randint(1,3)
-matrizPixeles=[x][y].config(bg=colores[clave])
-'''
+def ActualizarTablero(tablero):
+    for x in range(21):
+        for y in range(44):
+            if isinstance(tablero[x][y], Alien):
+                colores = {1:"lightblue",2:"yellow",3:"lightgreen", 4:"orange"}
+                clave = randint(1,4)
+                matrizPixeles[x][y].config(bg=colores[clave])
+
 
 #Main
 #RecibirPrincipal()
