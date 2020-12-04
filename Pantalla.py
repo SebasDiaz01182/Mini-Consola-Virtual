@@ -5,23 +5,26 @@ import socket #Libreria de socket
 import sys #Libreria para cerrar el programa en caso de error
 import json #Libreria para utilizar objetos JSON
 from random import *
-from ObjetosSpaceInvader import *
 import _thread
 import time
 
-'''
-#Creacion del socket 
-socketSI = socket.socket()
-socketSI.bind(('localhost',6000))
-socketSI.listen(1)
-'''
 
-matrizPixeles = []
+#Creacion del socket 
+socketZ = socket.socket()
+socketZ.bind(('localhost',7000))
+socketZ.listen(1)
+
+socketP = socket.socket()
+socketP.bind(('localhost',6000))
+socketP.listen(1)
+
+
+
+matrizPixeles = []#Matriz de pixeles de toda la pantalla
+
 class Pantalla:
     def __init__(self):
         super().__init__()
-        
-
         #Creacion de la ventana
         pantalla = Tk()
         pantalla.geometry('1601x1080')
@@ -51,34 +54,26 @@ class Pantalla:
         matrizPixeles[43][20].config(bg="red")
         matrizPixeles[41][21].config(bg="grey")
         
-        pantalla.mainloop() # bucle infinito de la interfaz
+        #Cambiar color de enemigos
         
+        pantalla.mainloop() # bucle infinito de la interfaz
 
-'''
 def RecibirPrincipal():
     #Creacion del socket servidor
-    socketP = socket.socket()
-    socketP.bind(('localhost',6000))
-    socketP.listen(1)
+    pantalla = Pantalla()
     while True:
         try:
             #Recibe la entrada del controlador
             conexion, direccion = socketP.accept()
             peticion = conexion.recv(1024).decode() #recibe la entrada que provee el controlador
-            print("Respuesta desde el cliente: ",peticion)
+            print("Peticion del SI ",peticion)
         except:
             pass
-'''
+        pantalla.mainloop()
 
-def ActualizarTablero(tablero):
-    for x in range(21):
-        for y in range(44):
-            if isinstance(tablero[x][y], Alien):
-                colores = {1:"lightblue",2:"yellow",3:"lightgreen", 4:"orange"}
-                clave = randint(1,4)
-                matrizPixeles[x][y].config(bg=colores[clave])
+
+
 
 
 #Main
-#RecibirPrincipal()
-x = Pantalla()
+RecibirPrincipal()

@@ -7,14 +7,6 @@ import json #Libreria para utilizar objetos JSON
 
 #CONEXION CON EL SOCKET
 #Conexion con el servidor de space Invader
-try:
-    socketC = socket.socket()
-    socketC.connect(('localhost',8000))
-    socketC.close()
-except:
-    messagebox.showwarning(title='Error', message='No posee conexion con el controlador.')
-    sys.exit()
-
 #Funcion que envia el JSON correspondiente a la entrada del usuario
 def EnviarEntrada(mensajeJSON):
     try:
