@@ -75,7 +75,19 @@ for i in range(44):
         tablero[i].append(casilla)
 
 #Instanciacion de los enemigos
-
+x, y, cont = 0
+while x <=18:
+    if y+4 < 44:
+        colorRandom = randint(1,10)
+        tablero[x][y+4] = Alien()
+        cont+=1
+        y+=4
+    elif cont%2==0:
+        x+=3
+        y=0
+    else:
+        cont+=1
+        y+=1
 
 #Instanciacion del personaje
 tablero[43][21] = Personaje()
@@ -104,4 +116,5 @@ def Principal(tablero):
 #Principal        
 Principal(tablero)
 
-
+def Disparar(xy):
+    

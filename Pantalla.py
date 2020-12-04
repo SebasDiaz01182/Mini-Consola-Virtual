@@ -54,6 +54,23 @@ class Pantalla:
         matrizPixeles[43][20].config(bg="red")
         matrizPixeles[41][21].config(bg="grey")
         
+        colores = {1:"lightgreen", 2:"yellow",3:"lightblue",4:"orange",5:"purple",6:"pink",7:"blue",8:"sea green",9:"gold",10:"saddle brown",11:"cyan",12:"darkOrchid4"}
+        x = 0 
+        y = 0
+        cont = 0
+        while x <=18:
+            if y+4 < 44:
+                colorRandom = randint(1,10)
+                matrizPixeles[x][y+4].config(bg = colores[colorRandom])
+                cont+=1
+                y+=4
+            elif cont%2==0:
+                x+=3
+                y=0
+            else:
+                cont+=1
+                y+=1
+        
         #Cambiar color de enemigos
         
         pantalla.mainloop() # bucle infinito de la interfaz
