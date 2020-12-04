@@ -5,22 +5,16 @@ import socket #Libreria de socket
 import sys #Libreria para cerrar el programa en caso de error
 import json #Libreria para utilizar objetos JSON
 from random import *
-import _thread
+import threading
 import time
 
 
-#Creacion del socket 
-socketZ = socket.socket()
-socketZ.bind(('localhost',7000))
-socketZ.listen(1)
 
-socketP = socket.socket()
-socketP.bind(('localhost',6000))
-socketP.listen(1)
 
 
 
 matrizPixeles = []#Matriz de pixeles de toda la pantalla
+
 
 class Pantalla:
     def __init__(self):
@@ -58,6 +52,7 @@ class Pantalla:
         x = 0 
         y = 0
         cont = 0
+        
         while x <=18:
             if y+4 < 44:
                 colorRandom = randint(1,10)
@@ -72,24 +67,41 @@ class Pantalla:
                 y+=1
         
         #Cambiar color de enemigos
-        
-        pantalla.mainloop() # bucle infinito de la interfaz
+        pantalla.mainloop()
 
-def RecibirPrincipal():
-    #Creacion del socket servidor
-    pantalla = Pantalla()
+def DeterminarHacer(peticion):
+    
+    if peticion['accion']=='izquierda':
+        #llama a cambiar izquierda
+    elif peticion['accion']=='derecha':
+        #llama a cambiar izquierda
+    else:
+        #disparar
+
+
+
+def AtenderConsola():
+    socketP = socket.socket()
+    socketP.bind(('localhost',6000))
+    socketP.listen(1)
     while True:
+        print('hostia')
         try:
             #Recibe la entrada del controlador
             conexion, direccion = socketP.accept()
             peticion = conexion.recv(1024).decode() #recibe la entrada que provee el controlador
-            print("Peticion del SI ",peticion)
+            peticion = json.loads(peticion)
+            DeterminarHacer(peticion)            
         except:
             pass
-        pantalla.mainloop()
 
 
-
+def RecibirPrincipal():
+    #Creacion del socket
+    hilo = threading.Thread(target=AtenderConsola)
+    hilo.start()
+    pantalla = Pantalla()
+    
 
 
 #Main

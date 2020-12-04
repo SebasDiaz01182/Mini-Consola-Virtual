@@ -4,66 +4,101 @@ from ObjetosSpaceInvader import *
 from tkinter import messagebox
 from random import * #Libreria para cosas aleatorias
 import time
-
-'''
-def EnviarPantalla():
-'''
-
-
+#Creacion del socket servidor
 socketSI = socket.socket()
 socketSI.bind(('localhost',8000))
 socketSI.listen(1)
 
+def EnviarPantalla(mensajeJSON):
+    try:
+        socketX = socket.socket()
+        socketX.connect(('localhost',6000))
+        socketX.send(mensajeJSON.encode()) #mandar al servidor lo que se ocupa
+        socketX.close()
+    except:
+        pass
+
+
 def PosicionJugador(tablero):
-    for i in range(50):
-        for j in range(50):
-            if (isinstance(tablero[i][j],Personaje)):
-                return [i,j]
-            else:
-                pass
+    for i in range(44):
+        if isinstance(tablero[41][i],Personaje):
+            return [41,i]
+        else:
+            pass
+
 
 def Disparar(xy):
-    cont = 21;
-    while(cont<=44):
-        if isinstance(tablero[xy[0]][cont], Alien):
-            tablero[xy[0]][cont]
+    i = 41
+    while(i>=0):
+        if isinstance(tablero[i][xy[0]],Alien):
+            tablero[i][xy[0]] = Casilla()
+            datos = {'accion':'disparo','x':i,'y':xy[0]}
+            mensajeJSON = json.dumps(datos)
+            EnviarPantalla(mensajeJSON)
+            break
+        else:
+            i-=1
+
 
 def MovIzq(xy):
-    if (xy[1]-1)<0:
+    if (xy[1]-2)<0:
         print('Movimiento invalido izq')
-    else: 
+    else:
         tablero[xy[0]][xy[1]] = Casilla()
-        tablero[xy[0]][xy[1]-1] = Personaje()
+        tablero[xy[0]][xy[1]+1] = Personaje()
+        
+        tablero[xy[0]+1][xy[1]] = Casilla()
+        tablero[xy[0]+1][xy[1]+1] = Personaje()
+
+        tablero[xy[0]+2][xy[1]] = Casilla()
+        tablero[xy[0]+2][xy[1]+1] = Personaje()
+
+        tablero[xy[0]+2][xy[1]+1] = Casilla()
+        tablero[xy[0]+2][xy[1]+1+2] = Personaje()
+
+        tablero[xy[0]+2][xy[1]-1] = Casilla()
+        tablero[xy[0]+2][xy[1]-1+1] = Personaje()
+
+        datos = {'accion':'izquierda','x':xy[0],'y':xy[1]}
+        mensajeJSON = json.dumps(datos)
+        EnviarPantalla(mensajeJSON)
+
 
 def MovDer(xy):
-    if (xy[1]+1)>49:
+    if (xy[1]+2)>44:
         print('Movimiento invalido der')
     else: 
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]][xy[1]+1] = Personaje()
+        
+        tablero[xy[0]+1][xy[1]] = Casilla()
+        tablero[xy[0]+1][xy[1]+1] = Personaje()
+
+        tablero[xy[0]+2][xy[1]] = Casilla()
+        tablero[xy[0]+2][xy[1]+1] = Personaje()
+
+        tablero[xy[0]+2][xy[1]+1] = Casilla()
+        tablero[xy[0]+2][xy[1]+1+2] = Personaje()
+
+        tablero[xy[0]+2][xy[1]-1] = Casilla()
+        tablero[xy[0]+2][xy[1]-1+1] = Personaje()
+
+        datos = {'accion':'izquierda','x':xy[0],'y':xy[1]}
+        mensajeJSON = json.dumps(datos)
+        EnviarPantalla(mensajeJSON)
     
 
 #Determina cual funcion ejecuta dependiendo del boton presionado
 def RealizarMovimiento(peticion,tablero):
-    '''
+    
     coord = PosicionJugador(tablero)
     if peticion['accion']=='izquierda':
-        MovIzq(coord,peticion)
+        MovIzq(coord)
     elif peticion['accion']=='derecha':
-        MovDer(coord,peticion)
+        MovDer(coord)
     else:
-        Disparar()
-    '''
-    try:
-        
-        socketX = socket.socket()
-        socketX.connect(('localhost',6000))
-        datos = {'hostia':1,'auron':2}
-        mensajeJSON = json.dumps(datos)
-        socketX.send(mensajeJSON.encode()) #mandar al servidor lo que se ocupa
-        
-    except:
-        pass
+        Disparar(coord)
+    
 
 
 #Llamado de funciones
@@ -75,10 +110,11 @@ for i in range(44):
         tablero[i].append(casilla)
 
 #Instanciacion de los enemigos
-x, y, cont = 0
+x = 0
+y=0
+cont=0
 while x <=18:
     if y+4 < 44:
-        colorRandom = randint(1,10)
         tablero[x][y+4] = Alien()
         cont+=1
         y+=4
@@ -116,5 +152,6 @@ def Principal(tablero):
 #Principal        
 Principal(tablero)
 
-def Disparar(xy):
+
+
     
