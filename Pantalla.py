@@ -7,7 +7,7 @@ import json #Libreria para utilizar objetos JSON
 from random import *
 import threading
 import time
-
+from PIL import ImageTk, Image
 
 
 
@@ -46,7 +46,8 @@ class Pantalla:
         matrizPixeles[43][22].config(bg="red")
         matrizPixeles[42][21].config(bg="red")
         matrizPixeles[43][20].config(bg="red")
-        matrizPixeles[41][21].config(bg="grey")
+        matrizPixeles[41][21].config(bg="gray")
+
         
         colores = {1:"lightgreen", 2:"yellow",3:"lightblue",4:"orange",5:"purple",6:"pink",7:"blue",8:"sea green",9:"gold",10:"saddle brown",11:"cyan",12:"darkOrchid4"}
         x = 0 
@@ -68,15 +69,45 @@ class Pantalla:
         
         #Cambiar color de enemigos
         pantalla.mainloop()
+def Moverzquierda(x, y):
+    matrizPixeles[x][y].config( bg = "black")
+    matrizPixeles[x][y-1].config(bg = "grey")
+    
+    matrizPixeles[x+1][y].config( bg = "black")
+    matrizPixeles[x+1][y-1].config(bg = "red")
 
+    matrizPixeles[x+2][y-1].config(bg = "red")
+    
+    matrizPixeles[x+2][y+1].config( bg = "black")
+    matrizPixeles[x+2][y-1].config(bg = "red")
+
+    matrizPixeles[x+2][y-2].config(bg = "red")
+    
+def MoverDerecha(x, y):
+    matrizPixeles[x][y-1].config( bg = "black")
+    matrizPixeles[x][y+1].config(bg = "grey")
+    
+    matrizPixeles[x+1][y-1].config( bg = "black")
+    matrizPixeles[x+1][y+1].config(bg = "red")
+    
+    matrizPixeles[x+2][y+1].config(bg = "red")
+    
+    matrizPixeles[x+2][y+2].config(bg = "red")
+    
+    matrizPixeles[x+2][y-1].config( bg = "black")
+    matrizPixeles[x+2][y].config(bg = "red")
+    
+def Disparar(x,y):
+    matrizPixeles[x][y].config(bg = "black")
+    
 def DeterminarHacer(peticion):
     
     if peticion['accion']=='izquierda':
-        #llama a cambiar izquierda
+        Moverzquierda(peticion['x'], peticion['y'])
     elif peticion['accion']=='derecha':
-        #llama a cambiar izquierda
+        MoverDerecha(peticion['x'], peticion['y'])
     else:
-        #disparar
+        Disparar(peticion['x'], peticion['y'])
 
 
 

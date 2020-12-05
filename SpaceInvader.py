@@ -30,9 +30,9 @@ def PosicionJugador(tablero):
 def Disparar(xy):
     i = 41
     while(i>=0):
-        if isinstance(tablero[i][xy[0]],Alien):
-            tablero[i][xy[0]] = Casilla()
-            datos = {'accion':'disparo','x':i,'y':xy[0]}
+        if isinstance(tablero[i][xy[1]],Alien):
+            tablero[i][xy[1]] = Casilla()
+            datos = {'accion':'disparo','x':i,'y':xy[1]}
             mensajeJSON = json.dumps(datos)
             EnviarPantalla(mensajeJSON)
             break
@@ -45,19 +45,19 @@ def MovIzq(xy):
         print('Movimiento invalido izq')
     else:
         tablero[xy[0]][xy[1]] = Casilla()
-        tablero[xy[0]][xy[1]+1] = Personaje()
+        tablero[xy[0]][xy[1]-1] = Personaje()
         
         tablero[xy[0]+1][xy[1]] = Casilla()
-        tablero[xy[0]+1][xy[1]+1] = Personaje()
+        tablero[xy[0]+1][xy[1]-1] = Personaje()
 
         tablero[xy[0]+2][xy[1]] = Casilla()
-        tablero[xy[0]+2][xy[1]+1] = Personaje()
+        tablero[xy[0]+2][xy[1]-1] = Personaje()
 
         tablero[xy[0]+2][xy[1]+1] = Casilla()
-        tablero[xy[0]+2][xy[1]+1+2] = Personaje()
+        tablero[xy[0]+2][xy[1]-1] = Personaje()
 
         tablero[xy[0]+2][xy[1]-1] = Casilla()
-        tablero[xy[0]+2][xy[1]-1+1] = Personaje()
+        tablero[xy[0]+2][xy[1]-2] = Personaje()
 
         datos = {'accion':'izquierda','x':xy[0],'y':xy[1]}
         mensajeJSON = json.dumps(datos)
@@ -81,7 +81,7 @@ def MovDer(xy):
         tablero[xy[0]+2][xy[1]+1+2] = Personaje()
 
         tablero[xy[0]+2][xy[1]-1] = Casilla()
-        tablero[xy[0]+2][xy[1]-1+1] = Personaje()
+        tablero[xy[0]+2][xy[1]+2] = Personaje()
 
         datos = {'accion':'izquierda','x':xy[0],'y':xy[1]}
         mensajeJSON = json.dumps(datos)
