@@ -101,7 +101,7 @@ def Disparar(x,y):
     e = 40
     while e!=x:
         matrizPixeles[e][y].config(bg="yellow")
-        time.sleep(0.15)
+        time.sleep(0.1)
         matrizPixeles[e][y].config(bg="black")
         e-=1 
     matrizPixeles[x][y].config(bg="black")
@@ -109,11 +109,12 @@ def Disparar(x,y):
     
 def DeterminarHacer(peticion):
     if peticion['accion']=='izquierda':
-        Moverzquierda(peticion['x'], peticion['y'])
+        hilo4 = threading.Thread(moverI = Moverzquierda(peticion['x'], peticion['y']))
+        hilo4.start()
     elif peticion['accion']=='derecha':
-        MoverDerecha(peticion['x'], peticion['y'])
+        hilo3 = threading.Thread(mover = MoverDerecha(peticion['x'], peticion['y']))
+        hilo3.start()
     else:
-        print('Disparar')
         hilo2 = threading.Thread(target=Disparar(peticion['x'], peticion['y']))
         hilo2.start()
 
@@ -129,7 +130,8 @@ def AtenderConsola():
             conexion, direccion = socketP.accept()
             peticion = conexion.recv(1024).decode() #recibe la entrada que provee el controlador
             peticion = json.loads(peticion)
-            DeterminarHacer(peticion)            
+            hilo5 = threading.Thread(determinar = DeterminarHacer(peticion) )
+            hilo5.start()
         except:
             pass
 
