@@ -22,6 +22,7 @@ class Pacman:
         daño = 1
         vida = 1
         itemsObtenidos = 0
+        habilidad = False 
         
     def setdaño(self,pdaño):
         self.daño = pdaño
@@ -40,6 +41,12 @@ class Pacman:
         
     def getObjetos(self):
         return self.itemsObtenidos
+    
+    def setHabilidad(self, pHabilidad):
+        self.habilidad = pHabilidad
+        
+    def getHabilidad(self):
+        return self.habilidad
 
 class Casilla:
     def __init__(self):
