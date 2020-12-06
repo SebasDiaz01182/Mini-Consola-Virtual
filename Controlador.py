@@ -48,7 +48,7 @@ def BotonAbajo():
     EnviarEntrada(mensajeJSON)
 
 
-
+                
 class Ventana:
     def __init__(self):
         super().__init__()

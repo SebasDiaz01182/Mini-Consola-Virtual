@@ -84,18 +84,18 @@ def Moverzquierda(x, y):
     matrizPixeles[x+2][y-2].config(bg = "red")
     
 def MoverDerecha(x, y):
-    matrizPixeles[x][y-1].config( bg = "black")
+    matrizPixeles[x][y].config( bg = "black")
     matrizPixeles[x][y+1].config(bg = "grey")
     
-    matrizPixeles[x+1][y-1].config( bg = "black")
+    matrizPixeles[x+1][y].config( bg = "black")
     matrizPixeles[x+1][y+1].config(bg = "red")
-    
+
     matrizPixeles[x+2][y+1].config(bg = "red")
+
+    matrizPixeles[x+2][y+1+1].config(bg = "red")
+
+    matrizPixeles[x+2][y-1].config(bg = "black")
     
-    matrizPixeles[x+2][y+2].config(bg = "red")
-    
-    matrizPixeles[x+2][y-1].config( bg = "black")
-    matrizPixeles[x+2][y].config(bg = "red")
     
 def Disparar(x,y):
     e = 40
@@ -109,14 +109,11 @@ def Disparar(x,y):
     
 def DeterminarHacer(peticion):
     if peticion['accion']=='izquierda':
-        hilo4 = threading.Thread(moverI = Moverzquierda(peticion['x'], peticion['y']))
-        hilo4.start()
+        Moverzquierda(peticion['x'],peticion['y'])
     elif peticion['accion']=='derecha':
-        hilo3 = threading.Thread(mover = MoverDerecha(peticion['x'], peticion['y']))
-        hilo3.start()
+        MoverDerecha(peticion['x'],peticion['y'])
     else:
-        hilo2 = threading.Thread(target=Disparar(peticion['x'], peticion['y']))
-        hilo2.start()
+        Disparar(peticion['x'],peticion['y'])
 
 
 def AtenderConsola():

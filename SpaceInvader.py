@@ -78,12 +78,12 @@ def MovDer(xy):
         tablero[xy[0]+2][xy[1]+1] = Personaje()
 
         tablero[xy[0]+2][xy[1]+1] = Casilla()
-        tablero[xy[0]+2][xy[1]+1+2] = Personaje()
+        tablero[xy[0]+2][xy[1]+1+1] = Personaje()
 
         tablero[xy[0]+2][xy[1]-1] = Casilla()
-        tablero[xy[0]+2][xy[1]+2] = Personaje()
+        tablero[xy[0]+2][xy[1]] = Personaje()
 
-        datos = {'accion':'izquierda','x':xy[0],'y':xy[1]}
+        datos = {'accion':'derecha','x':xy[0],'y':xy[1]}
         mensajeJSON = json.dumps(datos)
         EnviarPantalla(mensajeJSON)
     
