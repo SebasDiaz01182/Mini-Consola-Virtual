@@ -46,9 +46,7 @@ def BotonAbajo():
     peticion = {'accion':'abajo'}
     mensajeJSON = json.dumps(peticion)
     EnviarEntrada(mensajeJSON)
-
-
-                
+     
 class Ventana:
     def __init__(self):
         super().__init__()
@@ -82,8 +80,6 @@ class Ventana:
         botonAccion.place(x=400,y=125,width=55,height=40)
 
         ventana.mainloop() #bucle infinito
-
-
 
 def main():
    interfaz = Ventana()
