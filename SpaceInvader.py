@@ -96,8 +96,10 @@ def RealizarMovimiento(peticion,tablero):
         MovIzq(coord)
     elif peticion['accion']=='derecha':
         MovDer(coord)
-    else:
+    elif peticion['accion']=='ejecutar':
         Disparar(coord)
+    else:
+        pass
     
 
 
@@ -144,7 +146,6 @@ def Principal(tablero):
             peticion = conexion.recv(1024).decode() #recibe la entrada que provee el controlador
             print("Respuesta desde el controlador SPACE Invader: ",peticion)
             peticion = json.loads(peticion)
-            print(peticion['accion'])
             RealizarMovimiento(peticion,tablero)
         except:
             pass   

@@ -27,47 +27,73 @@ def PosicionJugador(tablero):
             pass
 
 def MoverDerecha(xy):
-    if ((xy[1]+2)<0) or (isinstance(xy[1]+2, Muro)):
+    if ((xy[1]+1)<0) or (isinstance(xy[1]+1, Muro)):
         print('Movimiento invalido derecha')
         
-    elif (isinstance(tablero[xy[0]][xy[1]+2]), Objeto):
+    elif (isinstance(tablero[xy[0]][xy[1]+1]), Objeto):
         tablero[xy[0]][xy[1]].setObjetos(tablero[xy[0]][xy[1]].getObjetos()+1)
-        if(tablero[xy[0]][xy[1]+2]).getHabilidad() :
+        if(tablero[xy[0]][xy[1]+1]).getHabilidad() :
             #Pacman modo matanza
             tablero[xy[0]][xy[1]].setHabilidad(True) 
             
-    if (isinstance(tablero[xy[0]][xy[1]+2], fantasma)) and (tablero[xy[0]][xy[1]].getHabilidad()):
+    if (isinstance(tablero[xy[0]][xy[1]+1], fantasma)) and (tablero[xy[0]][xy[1]].getHabilidad()):
             #Matar fantasma
-            tablero[xy[0]][xy[1]+2] = Casilla()      
+            tablero[xy[0]][xy[1]+1] = Casilla()      
             
     tablero[xy[0]][xy[1]] = Casilla()
     tablero[xy[0]][xy[1]+1] = Pacman()   
             
             
 def MoverIzquierda(xy):
-    if ((xy[1]-2)<0) or (isinstance(tablero[xy[0]][xy[1]-2], Muro)):
+    if ((xy[1]-1)<0) or (isinstance(tablero[xy[0]][xy[1]-1], Muro)):
         print('Movimiento invalido izquierda')
-    elif (isinstance(tablero[xy[0]][xy[1]-2]), Objeto):
+    elif (isinstance(tablero[xy[0]][xy[1]-1]), Objeto):
         tablero[xy[0]][xy[1]].setObjetos(tablero[xy[0]][xy[1]].getObjetos()+1)
-        if(tablero[xy[0]][xy[1]-2]).getHabilidad == True :
+        if(tablero[xy[0]][xy[1]-1]).getHabilidad():
             #Pacman modo matanza
+            tablero[xy[0]][xy[1]].setHabilidad(True)
+
+    if (isinstance(tablero[xy[0]][xy[1]-1], fantasma)) and (tablero[xy[0]][xy[1]].getHabilidad()):
+        #Matar fantasma
+        tablero[xy[0]][xy[1]-1] = Casilla()
+
+    tablero[xy[0]][xy[1]] = Casilla()
+    tablero[xy[0]][xy[1]+1] = Pacman()
         
 def MoverArriba(xy):
-    if ((xy[0]-2)<0) or (isinstance(tablero[xy[0]-2][xy[1]], Muro)):
+    if ((xy[0]-1)<0) or (isinstance(tablero[xy[0]-1][xy[1]], Muro)):
         print('Movimiento invalido arriba')
-    elif (isinstance(tablero[xy[0]-2][xy[1]]), Objeto):
+    elif (isinstance(tablero[xy[0]-1][xy[1]]), Objeto):
         xy[1].setObjetos(tablero[xy[0]][xy[1]].getObjetos()+1)
-        if(xy[0]-2).getHabilidad == True :
+        if(xy[0]-1).getHabilidad():
             #Pacman modo matanza
+            tablero[xy[0]][xy[1]].setHabilidad(True)
+
+    if (isinstance(tablero[xy[0]-1][xy[1]], fantasma)) and (tablero[xy[0]][xy[1]].getHabilidad()):
+        #Matar fantasma
+        tablero[xy[0]-1][xy[1]] = Casilla()
+
+    tablero[xy[0]][xy[1]] = Casilla()
+    tablero[xy[0]-1][xy[1]] = Pacman()
         
 def MoverAbajo(xy):
-    if ((xy[0]+2)<0) or (isinstance(tablero[xy[0]+2][xy[1]], Muro)):
+    if ((xy[0]+1)<0) or (isinstance(tablero[xy[0]+1][xy[1]], Muro)):
         print('Movimiento invalido abajo')
-    elif (isinstance(tablero[xy[0]+2][xy[1]]), Objeto):
-        xy[1].setObjetos()+1
-        if(xy[0]+2).getHabilidad == True :
+    elif (isinstance(tablero[xy[0]+1][xy[1]]), Objeto):
+        xy[1].setObjetos(tablero[xy[0]][xy[1]].getObjetos()+1)
+        if(xy[0]+1).getHabilidad():
             #Pacman modo matanza
+            tablero[xy[0]][xy[1]].setHabilidad(True)
+            tablero[xy[0]-1][xy[1]] = Casilla()
 
+    if (isinstance(tablero[xy[0]+1][xy[1]], fantasma)) and (tablero[xy[0]][xy[1]].getHabilidad()):
+        #Matar fantasma
+        tablero[xy[0]+1][xy[1]] = Casilla()
+
+    tablero[xy[0]][xy[1]] = Casilla()
+    tablero[xy[0]+1][xy[1]] = Pacman()
+
+    
     
 #Determina cual funcion ejecuta dependiendo del boton presionado
 def RealizarMovimiento(peticion,tablero):
