@@ -15,7 +15,6 @@ from PIL import ImageTk, Image
 
 matrizPixeles = []#Matriz de pixeles de toda la pantalla
 
-
 class Pantalla:
     def __init__(self,tipo):
         super().__init__()
@@ -24,11 +23,12 @@ class Pantalla:
         pantalla.geometry('1601x1080')
         pantalla.resizable(False,False)
         pantalla.title('Vista')
+
         for i in range(44):
             matrizPixeles.append([])
             for j in range(44):
                 matrizPixeles[i].append(None)
-        
+
         for r in range(44):
             for c in range(44):
                 pixel = Label(pantalla,text="",bg="black")
@@ -205,10 +205,9 @@ class Pantalla:
             matrizPixeles[10][21].config(bg = 'seagreen1')
             matrizPixeles[23][8].config(bg = 'seagreen1')
             matrizPixeles[23][39].config(bg = 'seagreen1')
-            
-            
 
-
+            #personaje
+            matrizPixeles[43][9].config(bg='gold')
             
         else:
             matrizPixeles[43][21].config(bg="red")
@@ -239,7 +238,37 @@ class Pantalla:
         
         #Cambiar color de enemigos
         pantalla.mainloop()
-
+'''
+def AnimacionFantasma():
+    while True:
+        matrizPixeles[27][21].config(bg='navy')
+        matrizPixeles[32][21].config(bg='navy')
+        matrizPixeles[15][21].config(bg='navy')
+        matrizPixeles[40][21].config(bg='navy')
+        matrizPixeles[3][21].config(bg='navy')
+        matrizPixeles[10][21].config(bg='navy')
+        matrizPixeles[23][8].config(bg='navy')
+        matrizPixeles[23][39].config(bg='navy')
+        time.sleep(1)
+        matrizPixeles[27][21].config(bg='grey')
+        matrizPixeles[32][21].config(bg='grey')
+        matrizPixeles[15][21].config(bg='grey')
+        matrizPixeles[40][21].config(bg='grey')
+        matrizPixeles[3][21].config(bg='grey')
+        matrizPixeles[10][21].config(bg='grey')
+        matrizPixeles[23][8].config(bg='grey')
+        matrizPixeles[23][39].config(bg='grey')
+        time.sleep(1)
+        matrizPixeles[27][21].config(bg='green')
+        matrizPixeles[32][21].config(bg='green')
+        matrizPixeles[15][21].config(bg='green')
+        matrizPixeles[40][21].config(bg='green')
+        matrizPixeles[3][21].config(bg='green')
+        matrizPixeles[10][21].config(bg='green')
+        matrizPixeles[23][8].config(bg='green')
+        matrizPixeles[23][39].config(bg='green')
+        time.sleep(1)
+'''
 def Moverzquierda(x, y):
     matrizPixeles[x][y].config( bg = "black")
     matrizPixeles[x][y-1].config(bg = "grey")
@@ -297,12 +326,13 @@ def AtenderConsola():
             conexion, direccion = socketP.accept()
             peticion = conexion.recv(1024).decode() #recibe la entrada que provee el controlador
             peticion = json.loads(peticion)
-            hilo5 = threading.Thread(determinar = DeterminarHacer(peticion))
+            hilo5 = threading.Thread(target=DeterminarHacer(peticion))
             hilo5.start()
         except:
             pass
 
 
+    
 def RecibirPrincipal():
     #Creacion del socket
     tipo = input('Indique el nombre del juego: ')
