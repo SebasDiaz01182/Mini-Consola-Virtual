@@ -36,8 +36,95 @@ class Pantalla:
                 pixel.grid(row=r,column=c,padx=1,pady=1)
                 matrizPixeles[r][c] = pixel
 
+        #figura de las L's
         if tipo=='pacman':
-            x=3
+            #arriba a la izquierda
+
+            #horizontales
+            for i in range(2,8):
+                matrizPixeles[2][i].config(bg='navy')
+            
+            for i in range(5,8):
+                matrizPixeles[6][i].config(bg='navy')
+            
+            for i in range(2,5):
+                matrizPixeles[12][i].config(bg='navy')
+            #verticales
+            for x in range(2,13):
+                matrizPixeles[x][2].config(bg='navy')
+            
+            for x in range(2,7):
+                matrizPixeles[x][7].config(bg='navy')
+            
+            for x in range(7,13):
+                matrizPixeles[x][5].config(bg='navy')   
+
+            #l izquierda abajo
+            for x in range(31,42):
+                matrizPixeles[x][2].config(bg='navy')
+
+            for x in range(31,37):
+                matrizPixeles[x][5].config(bg='navy')
+
+            for x in range(38,42):
+                matrizPixeles[x][7].config(bg='navy')
+
+            for i in range(2,5):
+                matrizPixeles[31][i].config(bg='navy')
+
+            for i in range(2,8):
+                matrizPixeles[41][i].config(bg='navy')
+
+            for i in range(5,8):
+                matrizPixeles[37][i].config(bg='navy')
+
+
+            #l arriba a la derecha
+            for x in range(2,7):
+                matrizPixeles[x][36].config(bg='navy')
+
+            for x in range(2,13):
+                matrizPixeles[x][41].config(bg='navy')
+
+            for x in range(7,13):
+                matrizPixeles[x][38].config(bg='navy')
+
+            for i in range(36,42):
+                matrizPixeles[2][i].config(bg='navy')
+            
+            for i in range(36,39):
+                matrizPixeles[6][i].config(bg='navy')
+            
+            for i in range(38,42):
+                matrizPixeles[12][i].config(bg='navy')    
+
+            #l abajo de la derecha 
+            for x in range(31,42):
+                matrizPixeles[x][41].config(bg='navy')
+
+            for x in range(31,37):
+                matrizPixeles[x][38].config(bg='navy')
+
+            for x in range(38,42):
+                matrizPixeles[x][36].config(bg='navy')
+
+            for i in range(38,42):
+                matrizPixeles[31][i].config(bg='navy')
+
+            for i in range(36,42):
+                matrizPixeles[41][i].config(bg='navy')
+
+            for i in range(36,39):
+                matrizPixeles[37][i].config(bg='navy')
+
+
+            #cuadros
+            for i in range(13,18):
+                for j in range(8,12):
+                    matrizPixeles[i][j].config(bg='navy')
+
+
+
         else:
             matrizPixeles[43][21].config(bg="red")
             matrizPixeles[43][22].config(bg="red")
