@@ -123,8 +123,93 @@ class Pantalla:
                 for j in range(8,12):
                     matrizPixeles[i][j].config(bg='navy')
 
+            for i in range(26,31):
+                for j in range(8,12):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            for i in range(13,18):
+                for j in range(32,36):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            for i in range(26,31):
+                for j in range(32,36):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            # rectangulos
+            for i in range(0,9):
+                for j in range(11, 13):
+                    matrizPixeles[i][j].config(bg='navy')
+            
+            for i in range(35,44):
+                for j in range(11, 13):
+                    matrizPixeles[i][j].config(bg='navy')
+                    
+            for i in range(0,9):
+                for j in range(31, 33):
+                    matrizPixeles[i][j].config(bg='navy')
+            
+            for i in range(35,44):
+                for j in range(31, 33):
+                    matrizPixeles[i][j].config(bg='navy')
+            
+            #rectangulos horizontales
+            for i in range(7,9):
+                for j in range(15, 29):
+                    matrizPixeles[i][j].config(bg='navy')
+            
+            for i in range(35,37):
+                for j in range(15, 29):
+                    matrizPixeles[i][j].config(bg='navy')
+            
+            #centro del tablero
+            for i in range(15,20):
+                matrizPixeles[12][i].config(bg='navy')
+                
+            for i in range(24,28):
+                matrizPixeles[12][i].config(bg='navy')
+            
+            for i in range(15, 28):
+                 matrizPixeles[30][i].config(bg='navy')
+            
+            for x in range(12,31):
+                matrizPixeles[x][15].config(bg='navy')
+                
+            for x in range(12,31):
+                matrizPixeles[x][28].config(bg='navy')
+                
+            for i in range(19,23):
+                for j in range(20,24):
+                    matrizPixeles[i][j].config(bg='navy')
+                    
+            #Objetos 
+
+            matrizPixeles[9][12].config(bg = 'red2')
+            matrizPixeles[22][1].config(bg = 'red2')
+            matrizPixeles[34][7].config(bg = 'red2')
+            matrizPixeles[40][14].config(bg = 'red2')
+            matrizPixeles[23][17].config(bg = 'red2')
+            matrizPixeles[23][26].config(bg = 'red2')
+            matrizPixeles[22][33].config(bg = 'red2')
+            matrizPixeles[3][28].config(bg = 'red2')
+            matrizPixeles[7][35].config(bg = 'red2')
+            matrizPixeles[38][43].config(bg = 'red2')
+            matrizPixeles[34][35].config(bg = 'red2')
+            
+            #Fantasma
+            
+            matrizPixeles[27][21].config(bg = 'seagreen1')
+            matrizPixeles[32][21].config(bg = 'seagreen1')
+            matrizPixeles[15][21].config(bg = 'seagreen1')
+            matrizPixeles[40][21].config(bg = 'seagreen1')
+            matrizPixeles[3][21].config(bg = 'seagreen1')
+            matrizPixeles[10][21].config(bg = 'seagreen1')
+            matrizPixeles[23][8].config(bg = 'seagreen1')
+            matrizPixeles[23][39].config(bg = 'seagreen1')
+            
+            
 
 
+            
         else:
             matrizPixeles[43][21].config(bg="red")
             matrizPixeles[43][22].config(bg="red")
