@@ -7,17 +7,13 @@ import json
 from tkinter import messagebox
 from random import * #Libreria para cosas aleatorias
 import time
+from Conexiones import *
 
 #Creación del socket servidor
 
 def EnviarPantalla(mensajeJSON):
-    try:
-        socketX = socket.socket()
-        socketX.connect(("Direccion del servidor"))
-        socketX.send(mensajeJSON.encode()) #mandar al servidor lo que se ocupa
-        socketX.close()
-    except:
-        pass
+    conexion = Cliente(6000)
+    conexion.EnviarMensaje(mensajeJSON)
     
 def PosicionJugador(tablero):
     for i in range(44):
@@ -105,6 +101,8 @@ def RealizarMovimiento(peticion,tablero):
         MoverDerecha(coord)
     elif peticion['accion'] == 'arriba':
         MoverArriba(coord)
+    elif peticion['accion'] == 'ejecutar':
+        pass
     else:
         MoverAbajo(coord)
   
@@ -272,27 +270,30 @@ tablero[3][28] = Objeto()
 tablero[7][35] = Objeto()
 tablero[38][43] = Objeto()
 tablero[34][35] = Objeto()
-
-#Fantasmas  
-tablero[27][21] = fantasma()
-tablero[32][21] = fantasma()
-tablero[15][21] = fantasma()
-tablero[40][21] = fantasma()
-tablero[3][21] = fantasma()
-tablero[10][21] = fantasma()
-tablero[23][8] = fantasma()
-tablero[23][39] = fantasma()
-
 #Personaje
 tablero[43][9] = Pacman()
 
 def Principal(tablero):
-    #Para inicializar todo, hay que enviar el tablero completo
+    servidor = Servidor(8000)
+    iniciar =  Cliente(6000)
+    #Mandar a pantalla la matriz completa para inicializar
+    for x in tablero:
+        for y in x:
+            if isinstance(y,Muro):
+                datos={'juego':'i','tipo':3}
+            elif isinstance(y,Pacman):
+                datos={'juego':'i','tipo':4}
+            elif isinstance(y,Objeto):
+                datos={'juego':'i','tipo':5}
+            else:
+                datos={'juego':'i','tipo':0}
+            mensajeJSON = json.dumps(datos)
+            iniciar.EnviarMensaje(mensajeJSON)
+
+    iniciar.CerrarConexion()
     while True:
-        try:
-            #Recibe la entrada del controlador
-        except:
-            pass   
+        peticion = servidor.RecibirPeticiones()
+        RealizarMovimiento(peticion,tablero)
         
 #Principal        
 Principal(tablero)

@@ -4,18 +4,14 @@ from tkinter import messagebox #Interfaz
 import socket #Libreria de socket
 import sys #Libreria para cerrar el programa en caso de error
 import json #Libreria para utilizar objetos JSON
+from Conexiones import *
 
 #CONEXION CON EL SOCKET
 #Conexion con el servidor de space Invader
 #Funcion que envia el JSON correspondiente a la entrada del usuario
 def EnviarEntrada(mensajeJSON):
-    try:
-        socketC = socket.socket()
-        socketC.connect(('localhost',8000))
-        socketC.send(mensajeJSON.encode()) #mandar al servidor lo que se ocupa
-    except:
-        messagebox.showwarning(title='Error', message='No posee conexion con el controlador.')
-        sys.exit()
+    conexion = Cliente(8000)
+    conexion.EnviarMensaje(mensajeJSON)
 
 #Funciones de los botones de movimiento
 def Accion():

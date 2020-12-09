@@ -1,21 +1,6 @@
 #Clases que se van a utilizar para el desarrollo de Pacman
 #Clases
-class fantasma:
-    def __init__(self):
-        vida = 1
-        daño = 1
 
-    def setVida(self,pvida):
-        self.vida = pvida
-        
-    def getVida(self):
-        return self.vida
-
-    def setDaño(self, pdaño):
-        self.daño = pdaño
-    
-    def getDaño(self):
-        return self.daño
     
 class Pacman:
     def __init__(self):

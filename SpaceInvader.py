@@ -4,19 +4,11 @@ from ObjetosSpaceInvader import *
 from tkinter import messagebox
 from random import * #Libreria para cosas aleatorias
 import time
-#Creacion del socket servidor
-socketSI = socket.socket()
-socketSI.bind(('localhost',8000))
-socketSI.listen(1)
+from Conexiones import *
 
 def EnviarPantalla(mensajeJSON):
-    try:
-        socketX = socket.socket()
-        socketX.connect(('localhost',6000))
-        socketX.send(mensajeJSON.encode()) #mandar al servidor lo que se ocupa
-        socketX.close()
-    except:
-        pass
+    conexion = Cliente(6000)
+    conexion.EnviarMensaje(mensajeJSON)
 
 
 def PosicionJugador(tablero):
@@ -32,7 +24,7 @@ def Disparar(xy):
     while(i>=0):
         if isinstance(tablero[i][xy[1]],Alien):
             tablero[i][xy[1]] = Casilla()
-            datos = {'accion':'disparo','x':i,'y':xy[1]}
+            datos = {'juego':'s','accion':'disparo','x':i,'y':xy[1]}
             mensajeJSON = json.dumps(datos)
             EnviarPantalla(mensajeJSON)
             break
@@ -59,7 +51,7 @@ def MovIzq(xy):
         tablero[xy[0]+2][xy[1]-1] = Casilla()
         tablero[xy[0]+2][xy[1]-2] = Personaje()
 
-        datos = {'accion':'izquierda','x':xy[0],'y':xy[1]}
+        datos = {'juego':'s','accion':'izquierda','x':xy[0],'y':xy[1]}
         mensajeJSON = json.dumps(datos)
         EnviarPantalla(mensajeJSON)
 
@@ -83,7 +75,7 @@ def MovDer(xy):
         tablero[xy[0]+2][xy[1]-1] = Casilla()
         tablero[xy[0]+2][xy[1]] = Personaje()
 
-        datos = {'accion':'derecha','x':xy[0],'y':xy[1]}
+        datos = {'juego':'s','accion':'derecha','x':xy[0],'y':xy[1]}
         mensajeJSON = json.dumps(datos)
         EnviarPantalla(mensajeJSON)
     
@@ -103,7 +95,7 @@ def RealizarMovimiento(peticion,tablero):
     
 
 
-#Llamado de funciones
+#Inicializar la matriz logica
 tablero = []
 for i in range(44):
     tablero.append([])
@@ -138,18 +130,26 @@ tablero[41][21] = Personaje()
 
 
 def Principal(tablero):
-    #Para inicializar todo, hay que enviar el tablero completo
+    servidor = Servidor(8000)
+    iniciar =  Cliente(6000)
+    #Mandar a pantalla la matriz completa para inicializar
+    for x in range(0,44):
+        for y in range(0,44):
+            if isinstance(tablero[x][y],Alien):
+                datos={'juego':'i','tipo':1,'x':x,'y':y}
+            elif isinstance(tablero[x][y],Personaje):
+                datos={'juego':'i','tipo':2,'x':x,'y':y}
+            elif isinstance(tablero[x][y],Casilla):
+                datos={'juego':'i','tipo':0,'x':x,'y':y}
+            mensajeJSON = json.dumps(datos)
+            iniciar.EnviarMensaje(mensajeJSON)
+            time.sleep(0.1)
+    
+    iniciar.CerrarConexion()
     while True:
-        try:
-            #Recibe la entrada del controlador
-            conexion, direccion = socketSI.accept()
-            peticion = conexion.recv(1024).decode() #recibe la entrada que provee el controlador
-            print("Respuesta desde el controlador SPACE Invader: ",peticion)
-            peticion = json.loads(peticion)
-            RealizarMovimiento(peticion,tablero)
-        except:
-            pass   
-        
+        peticion = servidor.RecibirPeticiones()
+        RealizarMovimiento(peticion,tablero)  
+
 #Principal        
 Principal(tablero)
 
