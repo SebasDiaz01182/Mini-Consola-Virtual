@@ -131,21 +131,6 @@ tablero[41][21] = Personaje()
 
 def Principal(tablero):
     servidor = Servidor(8000)
-    iniciar =  Cliente(6000)
-    #Mandar a pantalla la matriz completa para inicializar
-    for x in range(0,44):
-        for y in range(0,44):
-            if isinstance(tablero[x][y],Alien):
-                datos={'juego':'i','tipo':1,'x':x,'y':y}
-            elif isinstance(tablero[x][y],Personaje):
-                datos={'juego':'i','tipo':2,'x':x,'y':y}
-            elif isinstance(tablero[x][y],Casilla):
-                datos={'juego':'i','tipo':0,'x':x,'y':y}
-            mensajeJSON = json.dumps(datos)
-            iniciar.EnviarMensaje(mensajeJSON)
-            time.sleep(0.1)
-    
-    iniciar.CerrarConexion()
     while True:
         peticion = servidor.RecibirPeticiones()
         RealizarMovimiento(peticion,tablero)  

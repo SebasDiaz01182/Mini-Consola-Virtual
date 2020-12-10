@@ -16,78 +16,52 @@ def EnviarPantalla(mensajeJSON):
     conexion.EnviarMensaje(mensajeJSON)
     
 def PosicionJugador(tablero):
-    for i in range(44):
-        if isinstance(tablero[41][i],Pacman):
-            return [41,i]
-        else:
-            pass
+    for i in range(0,44):
+        for j in range(0,44):
+            if isinstance(tablero[i][j],Pacman):
+                return [i,j]
+            else:
+                pass
 
 def MoverDerecha(xy):
-    if ((xy[1]+1)<0) or (isinstance(xy[1]+1, Muro)):
+    if ((xy[1]+1)>43) or (isinstance(tablero[xy[0]][xy[1]+1], Muro)):
         print('Movimiento invalido derecha')
-        
-    elif (isinstance(tablero[xy[0]][xy[1]+1]), Objeto):
-        tablero[xy[0]][xy[1]].setObjetos(tablero[xy[0]][xy[1]].getObjetos()+1)
-        if(tablero[xy[0]][xy[1]+1]).getHabilidad() :
-            #Pacman modo matanza
-            tablero[xy[0]][xy[1]].setHabilidad(True) 
-            
-    if (isinstance(tablero[xy[0]][xy[1]+1], fantasma)) and (tablero[xy[0]][xy[1]].getHabilidad()):
-            #Matar fantasma
-            tablero[xy[0]][xy[1]+1] = Casilla()      
-            
-    tablero[xy[0]][xy[1]] = Casilla()
-    tablero[xy[0]][xy[1]+1] = Pacman()   
-            
+    else:     
+        tablero[xy[0]][xy[1]] = Casilla()
+        tablero[xy[0]][xy[1]+1] = Pacman()
+        datos={'juego':'p','accion':'derecha','x':xy[0],'y':xy[1]}   
+        mensajeJSON = json.dumps(datos)
+        EnviarPantalla(mensajeJSON)    
             
 def MoverIzquierda(xy):
     if ((xy[1]-1)<0) or (isinstance(tablero[xy[0]][xy[1]-1], Muro)):
         print('Movimiento invalido izquierda')
-    elif (isinstance(tablero[xy[0]][xy[1]-1]), Objeto):
-        tablero[xy[0]][xy[1]].setObjetos(tablero[xy[0]][xy[1]].getObjetos()+1)
-        if(tablero[xy[0]][xy[1]-1]).getHabilidad():
-            #Pacman modo matanza
-            tablero[xy[0]][xy[1]].setHabilidad(True)
-
-    if (isinstance(tablero[xy[0]][xy[1]-1], fantasma)) and (tablero[xy[0]][xy[1]].getHabilidad()):
-        #Matar fantasma
-        tablero[xy[0]][xy[1]-1] = Casilla()
-
-    tablero[xy[0]][xy[1]] = Casilla()
-    tablero[xy[0]][xy[1]+1] = Pacman()
+    else:
+        tablero[xy[0]][xy[1]] = Casilla()
+        tablero[xy[0]][xy[1]-1] = Pacman()
+        datos={'juego':'p','accion':'izquierda','x':xy[0],'y':xy[1]}   
+        mensajeJSON = json.dumps(datos)
+        EnviarPantalla(mensajeJSON)
         
 def MoverArriba(xy):
     if ((xy[0]-1)<0) or (isinstance(tablero[xy[0]-1][xy[1]], Muro)):
         print('Movimiento invalido arriba')
-    elif (isinstance(tablero[xy[0]-1][xy[1]]), Objeto):
-        xy[1].setObjetos(tablero[xy[0]][xy[1]].getObjetos()+1)
-        if(xy[0]-1).getHabilidad():
-            #Pacman modo matanza
-            tablero[xy[0]][xy[1]].setHabilidad(True)
-
-    if (isinstance(tablero[xy[0]-1][xy[1]], fantasma)) and (tablero[xy[0]][xy[1]].getHabilidad()):
-        #Matar fantasma
-        tablero[xy[0]-1][xy[1]] = Casilla()
-
-    tablero[xy[0]][xy[1]] = Casilla()
-    tablero[xy[0]-1][xy[1]] = Pacman()
+    else:
+        tablero[xy[0]][xy[1]] = Casilla()
+        tablero[xy[0]-1][xy[1]] = Pacman()
+        datos={'juego':'p','accion':'arriba','x':xy[0],'y':xy[1]}   
+        mensajeJSON = json.dumps(datos)
+        EnviarPantalla(mensajeJSON)
         
 def MoverAbajo(xy):
     if ((xy[0]+1)<0) or (isinstance(tablero[xy[0]+1][xy[1]], Muro)):
         print('Movimiento invalido abajo')
-    elif (isinstance(tablero[xy[0]+1][xy[1]]), Objeto):
-        xy[1].setObjetos(tablero[xy[0]][xy[1]].getObjetos()+1)
-        if(xy[0]+1).getHabilidad():
-            #Pacman modo matanza
-            tablero[xy[0]][xy[1]].setHabilidad(True)
-            tablero[xy[0]-1][xy[1]] = Casilla()
-
-    if (isinstance(tablero[xy[0]+1][xy[1]], fantasma)) and (tablero[xy[0]][xy[1]].getHabilidad()):
-        #Matar fantasma
-        tablero[xy[0]+1][xy[1]] = Casilla()
-
-    tablero[xy[0]][xy[1]] = Casilla()
-    tablero[xy[0]+1][xy[1]] = Pacman()
+    else:
+        tablero[xy[0]][xy[1]] = Casilla()
+        tablero[xy[0]+1][xy[1]] = Pacman()
+        datos={'juego':'p','accion':'abajo','x':xy[0],'y':xy[1]}   
+        mensajeJSON = json.dumps(datos)
+        EnviarPantalla(mensajeJSON)
 
     
     
@@ -275,22 +249,6 @@ tablero[43][9] = Pacman()
 
 def Principal(tablero):
     servidor = Servidor(8000)
-    iniciar =  Cliente(6000)
-    #Mandar a pantalla la matriz completa para inicializar
-    for x in tablero:
-        for y in x:
-            if isinstance(y,Muro):
-                datos={'juego':'i','tipo':3}
-            elif isinstance(y,Pacman):
-                datos={'juego':'i','tipo':4}
-            elif isinstance(y,Objeto):
-                datos={'juego':'i','tipo':5}
-            else:
-                datos={'juego':'i','tipo':0}
-            mensajeJSON = json.dumps(datos)
-            iniciar.EnviarMensaje(mensajeJSON)
-
-    iniciar.CerrarConexion()
     while True:
         peticion = servidor.RecibirPeticiones()
         RealizarMovimiento(peticion,tablero)

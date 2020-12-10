@@ -23,14 +23,13 @@ class Servidor:
         self.socketS.bind(('localhost',puerto))
         self.socketS.listen(1)
 
-    def RecibirPeticiones(self)->str:
+    def RecibirPeticiones(self):
         #Recibe la entrada del controlador
         try:
             conexion, direccion = self.socketS.accept()
             peticion = conexion.recv(1024).decode() #recibe la entrada que provee el controlador
             print("Respuesta desde el controlador SPACE Invader: ",peticion)
             peticion = json.loads(peticion)
-            print('Diccionario',peticion)
             return peticion
         except:
             print('excepcion en conexion')

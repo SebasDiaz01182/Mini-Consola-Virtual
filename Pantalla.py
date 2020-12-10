@@ -17,7 +17,7 @@ from ObjetosSpaceInvader import *
 
 matrizPixeles = []#Matriz de pixeles de toda la pantalla
 class Pantalla:
-    def __init__(self):
+    def __init__(self,tipo):
         super().__init__()
         #Creacion de la ventana
         pantalla = Tk()
@@ -35,12 +35,171 @@ class Pantalla:
                 pixel.config(width=4,height=0)
                 pixel.grid(row=r,column=c,padx=1,pady=1)
                 matrizPixeles[r][c] = pixel
-               
+
+        if tipo=='pacman':
+            #horizontales
+            for i in range(2,8):
+                matrizPixeles[2][i].config(bg='navy')
+
+            for i in range(5,8):
+                matrizPixeles[6][i].config(bg='navy')
+
+            for i in range(2,5):
+                matrizPixeles[12][i].config(bg='navy')
+            #verticales
+            for x in range(2,13):
+                matrizPixeles[x][2].config(bg='navy')
+
+            for x in range(2,7):
+                matrizPixeles[x][7].config(bg='navy')
+
+            for x in range(7,13):
+                matrizPixeles[x][5].config(bg='navy')   
+
+            #l izquierda abajo
+            for x in range(31,42):
+                matrizPixeles[x][2].config(bg='navy')
+
+            for x in range(31,37):
+                matrizPixeles[x][5].config(bg='navy')
+
+            for x in range(38,42):
+                matrizPixeles[x][7].config(bg='navy')
+
+            for i in range(2,5):
+                matrizPixeles[31][i].config(bg='navy')
+
+            for i in range(2,8):
+                matrizPixeles[41][i].config(bg='navy')
+
+            for i in range(5,8):
+                matrizPixeles[37][i].config(bg='navy')
+
+
+            #l arriba a la derecha
+            for x in range(2,7):
+                matrizPixeles[x][36].config(bg='navy')
+
+            for x in range(2,13):
+                matrizPixeles[x][41].config(bg='navy')
+
+            for x in range(7,13):
+                matrizPixeles[x][38].config(bg='navy')
+
+            for i in range(36,42):
+                matrizPixeles[2][i].config(bg='navy')
+
+            for i in range(36,39):
+                matrizPixeles[6][i].config(bg='navy')
+
+            for i in range(38,42):
+                matrizPixeles[12][i].config(bg='navy')    
+
+            #l abajo de la derecha 
+            for x in range(31,42):
+                matrizPixeles[x][41].config(bg='navy')
+
+            for x in range(31,37):
+                matrizPixeles[x][38].config(bg='navy')
+
+            for x in range(38,42):
+                matrizPixeles[x][36].config(bg='navy')
+
+            for i in range(38,42):
+                matrizPixeles[31][i].config(bg='navy')
+
+            for i in range(36,42):
+                matrizPixeles[41][i].config(bg='navy')
+
+            for i in range(36,39):
+                matrizPixeles[37][i].config(bg='navy')
+
+
+            #cuadros
+            for i in range(13,18):
+                for j in range(8,12):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            for i in range(26,31):
+                for j in range(8,12):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            for i in range(13,18):
+                for j in range(32,36):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            for i in range(26,31):
+                for j in range(32,36):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            # rectangulos
+            for i in range(0,9):
+                for j in range(11, 13):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            for i in range(35,44):
+                for j in range(11, 13):
+                    matrizPixeles[i][j].config(bg='navy')
+                    
+            for i in range(0,9):
+                for j in range(31, 33):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            for i in range(35,44):
+                for j in range(31, 33):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            #rectangulos horizontales
+            for i in range(7,9):
+                for j in range(15, 29):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            for i in range(35,37):
+                for j in range(15, 29):
+                    matrizPixeles[i][j].config(bg='navy')
+
+            #centro del tablero
+            for i in range(15,20):
+                matrizPixeles[12][i].config(bg='navy')
+                
+            for i in range(24,28):
+                matrizPixeles[12][i].config(bg='navy')
+
+            for i in range(15, 28):
+                    matrizPixeles[30][i].config(bg='navy')
+
+            for x in range(12,31):
+                matrizPixeles[x][15].config(bg='navy')
+                
+            for x in range(12,31):
+                matrizPixeles[x][28].config(bg='navy')
+                
+            for i in range(19,23):
+                for j in range(20,24):
+                    matrizPixeles[i][j].config(bg='navy')
+                    
+            #Objetos 
+
+            matrizPixeles[9][12].config(bg = 'red2')
+            matrizPixeles[22][1].config(bg = 'red2')
+            matrizPixeles[34][7].config(bg = 'red2')
+            matrizPixeles[40][14].config(bg = 'red2')
+            matrizPixeles[23][17].config(bg = 'red2')
+            matrizPixeles[23][26].config(bg = 'red2')
+            matrizPixeles[22][33].config(bg = 'red2')
+            matrizPixeles[3][28].config(bg = 'red2')
+            matrizPixeles[7][35].config(bg = 'red2')
+            matrizPixeles[38][43].config(bg = 'red2')
+            matrizPixeles[34][35].config(bg = 'red2')
+            #personaje
+            matrizPixeles[43][9].config(bg='gold')
+
+
         #Cambiar color de enemigos
         pantalla.mainloop()
 
 
-def Moverzquierda(x, y):
+def MoverIzquierda(x, y):
     matrizPixeles[x][y].config( bg = "black")
     matrizPixeles[x][y-1].config(bg = "grey")
     
@@ -77,22 +236,48 @@ def Disparar(x,y):
         e-=1 
     matrizPixeles[x][y].config(bg="black")
 
-    
+
+def PMoverIzquierda(x,y):
+    print(x,',',y)
+    matrizPixeles[x][y].config(bg='black')
+    matrizPixeles[x][y-1].config(bg='gold')
+def PMoverDerecha(x,y):
+    print(x,',',y)
+    matrizPixeles[x][y].config(bg='black')
+    matrizPixeles[x][y+1].config(bg='gold')
+def PMoverArriba(x,y):
+    print(x,',',y)
+    matrizPixeles[x][y].config(bg='black')
+    matrizPixeles[x-1][y].config(bg='gold')
+
+def PMoverAbajo(x,y):
+    print(x,',',y)
+    matrizPixeles[x][y].config(bg='black')
+    matrizPixeles[x+1][y].config(bg='gold')
+
+
 def DeterminarHacer(peticion):
     
     if peticion['juego']=='s':
         if peticion['accion']=='izquierda':
-            Moverzquierda(peticion['x'],peticion['y'])
+            MoverIzquierda(peticion['x'],peticion['y'])
         elif peticion['accion']=='derecha':
             MoverDerecha(peticion['x'],peticion['y'])
         else:
             Disparar(peticion['x'],peticion['y'])
 
     elif peticion['juego']=='p':
-        print('juego de pacman acciones')
+        if peticion['accion']=='izquierda':
+            PMoverIzquierda(peticion['x'],peticion['y'])
+        elif peticion['accion']=='derecha':
+            PMoverDerecha(peticion['x'],peticion['y'])
+        elif peticion['accion']=='arriba':
+            PMoverDerecha(peticion['x'],peticion['y'])
+        else:
+            PMoverAbajo(peticion['x'],peticion['y'])
 
     else:
-        
+        print('hola')
         colores={1:"lightgreen", 2:"yellow",3:"lightblue",4:"orange",5:"purple",6:"pink",7:"blue",8:"sea green",9:"gold",10:"saddle brown",11:"cyan",12:"darkOrchid4"}
         tipo = peticion['tipo']
         color = {0:'black',2:'grey',3:'blue',4:'yellow',5:'red'}
@@ -117,7 +302,7 @@ def RecibirPrincipal():
     #Creacion del socket
     hilo = threading.Thread(target=AtenderConsola)
     hilo.start()
-    pantalla = Pantalla()
+    pantalla = Pantalla('pacman')
         
 
 #Main
