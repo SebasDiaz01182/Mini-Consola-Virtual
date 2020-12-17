@@ -193,7 +193,31 @@ class Pantalla:
             matrizPixeles[34][35].config(bg = 'red2')
             #personaje
             matrizPixeles[43][9].config(bg='gold')
+        else:
+            matrizPixeles[43][21].config(bg="red")
+            matrizPixeles[43][22].config(bg="red")
+            matrizPixeles[42][21].config(bg="red")
+            matrizPixeles[43][20].config(bg="red")
+            matrizPixeles[41][21].config(bg="gray")
 
+
+            colores = {1:"lightgreen", 2:"yellow",3:"lightblue",4:"orange",5:"purple",6:"pink",7:"blue",8:"sea green",9:"gold",10:"saddle brown",11:"cyan",12:"darkOrchid4"}
+            x = 0 
+            y = 0
+            cont = 0
+
+            while x <=18:
+                if y+4 < 44:
+                    colorRandom = randint(1,10)
+                    matrizPixeles[x][y+4].config(bg = colores[colorRandom])
+                    cont+=1
+                    y+=4
+                elif cont%2==0:
+                    x+=3
+                    y=0
+                else:
+                    cont+=1
+                    y+=1
 
         #Cambiar color de enemigos
         pantalla.mainloop()
@@ -272,21 +296,14 @@ def DeterminarHacer(peticion):
         elif peticion['accion']=='derecha':
             PMoverDerecha(peticion['x'],peticion['y'])
         elif peticion['accion']=='arriba':
-            PMoverDerecha(peticion['x'],peticion['y'])
-        else:
+            PMoverArriba(peticion['x'],peticion['y'])
+        elif peticion['accion']=='abajo':
             PMoverAbajo(peticion['x'],peticion['y'])
+        else:
+            pass
 
     else:
-        print('hola')
-        colores={1:"lightgreen", 2:"yellow",3:"lightblue",4:"orange",5:"purple",6:"pink",7:"blue",8:"sea green",9:"gold",10:"saddle brown",11:"cyan",12:"darkOrchid4"}
-        tipo = peticion['tipo']
-        color = {0:'black',2:'grey',3:'blue',4:'yellow',5:'red'}
-        x = peticion['x']
-        y = peticion['y']
-        if tipo == 1:
-            matrizPixeles[x][y].config(bg=colores[randint(1,12)])
-        else:
-            matrizPixeles[x][y].config(bg=color[tipo])
+       pass
         
 
 
@@ -300,6 +317,7 @@ def AtenderConsola():
     
 def RecibirPrincipal():
     #Creacion del socket
+    
     hilo = threading.Thread(target=AtenderConsola)
     hilo.start()
     pantalla = Pantalla('pacman')

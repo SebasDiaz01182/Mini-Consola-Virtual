@@ -25,7 +25,7 @@ def PosicionJugador(tablero):
 
 def MoverDerecha(xy):
     if ((xy[1]+1)>43) or (isinstance(tablero[xy[0]][xy[1]+1], Muro)):
-        print('Movimiento invalido derecha')
+        messagebox.showerror(title='Derecha manco',message='Loca')
     else:     
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]][xy[1]+1] = Pacman()
@@ -35,7 +35,7 @@ def MoverDerecha(xy):
             
 def MoverIzquierda(xy):
     if ((xy[1]-1)<0) or (isinstance(tablero[xy[0]][xy[1]-1], Muro)):
-        print('Movimiento invalido izquierda')
+        messagebox.showerror(title='Izquierda manco',message='Loca')
     else:
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]][xy[1]-1] = Pacman()
@@ -45,7 +45,7 @@ def MoverIzquierda(xy):
         
 def MoverArriba(xy):
     if ((xy[0]-1)<0) or (isinstance(tablero[xy[0]-1][xy[1]], Muro)):
-        print('Movimiento invalido arriba')
+        messagebox.showerror(title='Arriba manco',message='Loca')
     else:
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]-1][xy[1]] = Pacman()
@@ -54,8 +54,8 @@ def MoverArriba(xy):
         EnviarPantalla(mensajeJSON)
         
 def MoverAbajo(xy):
-    if ((xy[0]+1)<0) or (isinstance(tablero[xy[0]+1][xy[1]], Muro)):
-        print('Movimiento invalido abajo')
+    if ((xy[0]+1)<43) or (isinstance(tablero[xy[0]+1][xy[1]], Muro)):
+        messagebox.showerror(title='Abajo manco',message='Loca')
     else:
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]+1][xy[1]] = Pacman()
@@ -75,10 +75,11 @@ def RealizarMovimiento(peticion,tablero):
         MoverDerecha(coord)
     elif peticion['accion'] == 'arriba':
         MoverArriba(coord)
-    elif peticion['accion'] == 'ejecutar':
-        pass
-    else:
+    elif peticion['accion'] == 'abajo':
         MoverAbajo(coord)
+    else:
+        pass
+        
   
 #Instanciar la pantalla del juego pacman
 #Tablero de juego
