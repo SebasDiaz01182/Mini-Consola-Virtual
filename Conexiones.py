@@ -28,9 +28,8 @@ class Servidor:
         try:
             conexion, direccion = self.socketS.accept()
             peticion = conexion.recv(1024).decode() #recibe la entrada que provee el controlador
-            print("Respuesta desde el controlador SPACE Invader: ",peticion)
             peticion = json.loads(peticion)
             return peticion
         except:
-            print('excepcion en conexion')
+            pass
         

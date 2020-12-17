@@ -14,6 +14,11 @@ def EnviarEntrada(mensajeJSON):
     conexion.EnviarMensaje(mensajeJSON)
 
 #Funciones de los botones de movimiento
+def Iniciar():
+    peticion = {'accion':'iniciar'}
+    mensajeJSON = json.dumps(peticion)
+    EnviarEntrada(mensajeJSON)
+
 def Accion():
     peticion = {'accion':'ejecutar'}
     mensajeJSON = json.dumps(peticion)
@@ -71,9 +76,15 @@ class Ventana:
         botonAb.place(x=130,y=175,width=55,height=50)
 
         #Boton de Accion
-        botonAccion = Button(ventana,text='X',command=Accion)
+        botonAccion = Button(ventana,text='Accion',command=Accion)
         botonAccion.pack()
         botonAccion.place(x=400,y=125,width=55,height=40)
+
+        #Boton de Iniciar
+        botonInicio = Button(ventana,text='Iniciar',command=Iniciar)
+        botonInicio.pack()
+        botonInicio.place(x=400,y=200,width=55,height=40)
+
 
         ventana.mainloop() #bucle infinito
 

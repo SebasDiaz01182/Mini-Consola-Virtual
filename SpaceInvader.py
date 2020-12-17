@@ -34,7 +34,7 @@ def Disparar(xy):
 
 def MovIzq(xy):
     if (xy[1]-2)<0:
-        print('Movimiento invalido izq')
+        pass
     else:
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]][xy[1]-1] = Personaje()
@@ -58,7 +58,7 @@ def MovIzq(xy):
 
 def MovDer(xy):
     if (xy[1]+2)>44:
-        print('Movimiento invalido der')
+        pass
     else: 
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]][xy[1]+1] = Personaje()
@@ -79,6 +79,10 @@ def MovDer(xy):
         mensajeJSON = json.dumps(datos)
         EnviarPantalla(mensajeJSON)
     
+def IniciarSpace():
+    datos={'juego':'is'}
+    mensajeJSON = json.dumps(datos)
+    EnviarPantalla(mensajeJSON)
 
 #Determina cual funcion ejecuta dependiendo del boton presionado
 def RealizarMovimiento(peticion,tablero):
@@ -90,6 +94,8 @@ def RealizarMovimiento(peticion,tablero):
         MovDer(coord)
     elif peticion['accion']=='ejecutar':
         Disparar(coord)
+    elif peticion['accion']=='iniciar':
+        IniciarSpace()
     else:
         pass
     

@@ -25,7 +25,7 @@ def PosicionJugador(tablero):
 
 def MoverDerecha(xy):
     if ((xy[1]+1)>43) or (isinstance(tablero[xy[0]][xy[1]+1], Muro)):
-        messagebox.showerror(title='Derecha manco',message='Loca')
+        pass
     else:     
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]][xy[1]+1] = Pacman()
@@ -35,7 +35,7 @@ def MoverDerecha(xy):
             
 def MoverIzquierda(xy):
     if ((xy[1]-1)<0) or (isinstance(tablero[xy[0]][xy[1]-1], Muro)):
-        messagebox.showerror(title='Izquierda manco',message='Loca')
+        pass
     else:
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]][xy[1]-1] = Pacman()
@@ -45,7 +45,7 @@ def MoverIzquierda(xy):
         
 def MoverArriba(xy):
     if ((xy[0]-1)<0) or (isinstance(tablero[xy[0]-1][xy[1]], Muro)):
-        messagebox.showerror(title='Arriba manco',message='Loca')
+        pass
     else:
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]-1][xy[1]] = Pacman()
@@ -55,7 +55,7 @@ def MoverArriba(xy):
         
 def MoverAbajo(xy):
     if ((xy[0]+1)<43) or (isinstance(tablero[xy[0]+1][xy[1]], Muro)):
-        messagebox.showerror(title='Abajo manco',message='Loca')
+        pass
     else:
         tablero[xy[0]][xy[1]] = Casilla()
         tablero[xy[0]+1][xy[1]] = Pacman()
@@ -63,7 +63,10 @@ def MoverAbajo(xy):
         mensajeJSON = json.dumps(datos)
         EnviarPantalla(mensajeJSON)
 
-    
+def IniciarPacman():
+    datos={'juego':'ip'}
+    mensajeJSON = json.dumps(datos)
+    EnviarPantalla(mensajeJSON)    
     
 #Determina cual funcion ejecuta dependiendo del boton presionado
 def RealizarMovimiento(peticion,tablero):
@@ -77,6 +80,8 @@ def RealizarMovimiento(peticion,tablero):
         MoverArriba(coord)
     elif peticion['accion'] == 'abajo':
         MoverAbajo(coord)
+    elif peticion['accion'] == 'iniciar':
+        IniciarPacman()
     else:
         pass
         
