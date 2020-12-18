@@ -54,7 +54,7 @@ def MoverArriba(xy):
         EnviarPantalla(mensajeJSON)
         
 def MoverAbajo(xy):
-    if ((xy[0]+1)<43) or (isinstance(tablero[xy[0]+1][xy[1]], Muro)):
+    if ((xy[0]+1)>43) or (isinstance(tablero[xy[0]+1][xy[1]], Muro)):
         pass
     else:
         tablero[xy[0]][xy[1]] = Casilla()
